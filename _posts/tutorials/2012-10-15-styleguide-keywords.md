@@ -11,7 +11,9 @@ weight    : 2.1
 ---
 {% include config %}
 
-#### Using inherit
+
+
+## Using inherit
 
 Each set of modifiers and contexts will follow a cascading model, naturally inheriting the styles from previously matching modifiers and contexts. That is, if in our example above, if we invoke <br/> `@include styleguide(awesome example in a punchcut)`, we will get the following output:
 
@@ -26,35 +28,28 @@ We can take this one step further and inherit between different modifiers/contex
 
 <span class="note">`[scss/themes/my_custom_theme/components/_example.scss]`</span>
 {% highlight css %}
-$STYLEGUIDE_EXAMPLES_ID: example !default;
-$STYLEGUIDE_EXAMPLES: () !default;
-
-$a-blackhole: styleguide-add-component($STYLEGUIDE_EXAMPLES_ID, $STYLEGUIDE_EXAMPLES, (
-  (default, (
-    color        red,
-    background   yellow
-  )),
-  (awesome, (
-    font-weight  bold,
-    nil
-  )),
-  (cool, (
-    inherit (awesome),
-    nil
-  )),
-  (in-punchcut, (
-    color        white,
-    background   nil
-  )),
-  (awesome in-punchcut, (
-    font-size    20px,
-    nil
-  )),
-  (cool in-punchcut, (
-    inherit (awesome in-punchcut),
-    nil
-  ))
-), $CONFIG_THEME);
+$a-blackhole: styleguide-add-component(example, (), (
+  default: (
+    color:        red,
+    background:   yellow
+  ),
+  awesome: (
+    font-weight:  bold
+  ),
+  cool: (
+    inherit:      awesome
+  ),
+  in a punchcut: (
+    color:        white,
+    background:   null
+  ),
+  awesome in a punchcut: (
+    font-size:    20px
+  ),
+  cool in a punchcut: (
+    inherit:      awesome in a punchcut
+  )
+));
 {% endhighlight %}
 
 In this example, cool and awesome can now be used interchangeably.
